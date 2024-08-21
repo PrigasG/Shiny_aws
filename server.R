@@ -8,10 +8,10 @@ server <- function(input, output, session) {
     withProgress(message = 'Generating Data', value = 0, {
       tryCatch({
         dec_result <- process_decennial_data(input$year_id_dec)
-        dec_result
+        return(dec_result)
       }, error = function(e) {
         showNotification(paste("Error:", e$message), type = "error")
-        NULL
+        return(NULL)
       })
     })
   }, ignoreNULL = FALSE)
@@ -40,11 +40,10 @@ server <- function(input, output, session) {
           list(extend = 'excel', text = 'Excel')
         ),
         language = list(
-          lengthMenu = "Display _MENU_ records per page"
+          lengthMenu = "Display *MENU* records per page"
         )
       ),
       class = "display"
     )
   })
-
 }
